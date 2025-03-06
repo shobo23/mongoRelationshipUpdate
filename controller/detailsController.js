@@ -33,4 +33,26 @@ const createUserDetails = async (req, res) => {
   }
 };
 
-module.exports = { createUserDetails };
+const updateUserDetails = async (req, res) => {
+  try {
+    const findDetailAndUpdate = await detailsModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
+    if (!findDetailAndUpdate) {
+      return res.status(404).json({ message: "Cound'nt update date" });
+    }
+    return res
+      .status(200)
+      .json({ message: "update successfull", data: findDetailAndUpdate });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "an erorr occured", error: error || error?.message });
+  }
+};
+
+module.exports = { createUserDetails, updateUserDetails };

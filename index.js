@@ -12,6 +12,7 @@ const app = Express();
 app.use(Express.json());
 app.use(morgan("dev"));
 connectDb();
+
 app.use("/user", userRoute);
 app.use("/details", detailsRoute);
 
